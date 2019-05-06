@@ -1,5 +1,10 @@
 # Changelog
 
+## 67.0b17-8 (2019/05/06)
+
+* Firefox Developer Edition 67.0b17
+* Portapps 1.22.2
+
 ## 67.0b10-7 (2019/04/14)
 
 * Firefox Developer Edition 67.0b10
