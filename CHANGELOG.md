@@ -1,5 +1,10 @@
 # Changelog
 
+## 68.0b7-12 (2019/06/06)
+
+* Firefox Developer Edition 68.0b7
+* Extensions break on path change (Issue portapps/firefox-portable#2)
+
 ## 68.0b6-11 (2019/06/02)
 
 * Firefox Developer Edition 68.0b6
