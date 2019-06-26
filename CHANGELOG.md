@@ -1,5 +1,9 @@
 # Changelog
 
+## 68.0b13-14 (2019/06/26)
+
+* Firefox Developer Edition 68.0b13
+
 ## 68.0b10-13 (2019/06/16)
 
 * Firefox Developer Edition 68.0b10
