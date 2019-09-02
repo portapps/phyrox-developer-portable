@@ -1,5 +1,10 @@
 # Changelog
 
+## 69.0b16-18 (2019/09/02)
+
+* Firefox Developer Edition 69.0b16
+* Portapps 1.26.0
+
 ## 69.0b11-17 (2019/08/07)
 
 * Firefox Developer Edition 69.0b11
