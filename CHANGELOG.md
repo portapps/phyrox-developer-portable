@@ -1,5 +1,11 @@
 # Changelog
 
+## 70.0b6-20 (2019/09/13)
+
+* Firefox Developer Edition 70.0b6
+* Fix addons disabled on startup (Issue #1)
+* Portapps 1.26.1
+
 ## 70.0b2-19 (2019/09/02)
 
 * Firefox Developer Edition 70.0b2
