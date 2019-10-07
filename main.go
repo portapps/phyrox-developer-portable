@@ -13,7 +13,6 @@ import (
 	"path"
 
 	"github.com/Jeffail/gabs"
-	_ "github.com/kevinburke/go-bindata"
 	"github.com/pkg/errors"
 	"github.com/portapps/firefox-developer-portable/assets"
 	. "github.com/portapps/portapps"
