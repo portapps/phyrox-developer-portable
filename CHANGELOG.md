@@ -1,5 +1,10 @@
 # Changelog
 
+## 71.0b5-24 (2019/10/29)
+
+* Firefox Developer Edition 71.0b5
+* Update Firefox logo
+
 ## 71.0b1-22 (2019/10/16)
 
 * Firefox Developer Edition 71.0b1
