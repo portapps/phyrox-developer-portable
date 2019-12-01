@@ -1,5 +1,9 @@
 # Changelog
 
+## 71.0b12-25 (2019/12/01)
+
+* Firefox Developer Edition 71.0b12
+
 ## 71.0b5-24 (2019/12/01)
 
 * Following a trademark violation report (#5), name and logo have been changed
