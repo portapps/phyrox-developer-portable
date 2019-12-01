@@ -2,7 +2,7 @@
 
 ## 71.0b5-24 (2019/12/01)
 
-* Following a trademark violation report (#5), name and logo has been changed
+* Following a trademark violation report (#5), name and logo have been changed
 * Portapps 1.30.1
 
 ## 71.0b5-23 (2019/10/29)
