@@ -1,27 +1,21 @@
-<p align="center"><a href="https://portapps.io/app/firefox-developer-portable/" target="_blank"><img width="100" src="https://github.com/portapps/firefox-developer-portable/blob/master/res/papp.png"></a></p>
+<p align="center"><a href="https://portapps.io/app/phyrox-developer-portable/" target="_blank"><img width="100" src="https://github.com/portapps/phyrox-developer-portable/blob/master/res/papp.png"></a></p>
 
 <p align="center">
-  <a href="https://portapps.io/app/firefox-developer-portable/#download"><img src="https://img.shields.io/github/release/portapps/firefox-developer-portable.svg?style=flat-square" alt="GitHub release"></a>
-  <a href="https://portapps.io/app/firefox-developer-portable/#download"><img src="https://img.shields.io/github/downloads/portapps/firefox-developer-portable/total.svg?style=flat-square" alt="Total downloads"></a>
-  <a href="https://travis-ci.com/portapps/firefox-developer-portable"><img src="https://img.shields.io/travis/com/portapps/firefox-developer-portable/master.svg?style=flat-square" alt="Build Status"></a>
-  <a href="https://goreportcard.com/report/github.com/portapps/firefox-developer-portable"><img src="https://goreportcard.com/badge/github.com/portapps/firefox-developer-portable?style=flat-square" alt="Go Report"></a>
-  <a href="https://www.codacy.com/app/portapps/firefox-developer-portable"><img src="https://img.shields.io/codacy/grade/8496793e060d4a868d753dd50992a16d.svg?style=flat-square" alt="Code Quality"></a>
+  <a href="https://portapps.io/app/phyrox-developer-portable/#download"><img src="https://img.shields.io/github/release/portapps/phyrox-developer-portable.svg?style=flat-square" alt="GitHub release"></a>
+  <a href="https://portapps.io/app/phyrox-developer-portable/#download"><img src="https://img.shields.io/github/downloads/portapps/phyrox-developer-portable/total.svg?style=flat-square" alt="Total downloads"></a>
+  <a href="https://travis-ci.com/portapps/phyrox-developer-portable"><img src="https://img.shields.io/travis/com/portapps/phyrox-developer-portable/master.svg?style=flat-square" alt="Build Status"></a>
+  <a href="https://goreportcard.com/report/github.com/portapps/phyrox-developer-portable"><img src="https://goreportcard.com/badge/github.com/portapps/phyrox-developer-portable?style=flat-square" alt="Go Report"></a>
+  <a href="https://www.codacy.com/app/portapps/phyrox-developer-portable"><img src="https://img.shields.io/codacy/grade/8496793e060d4a868d753dd50992a16d.svg?style=flat-square" alt="Code Quality"></a>
   <br /><a href="https://github.com/sponsors/crazy-max"><img src="https://img.shields.io/badge/sponsor-crazy--max-181717.svg?logo=github&style=flat-square" alt="Become a sponsor"></a>
   <a href="https://www.paypal.me/crazyws"><img src="https://img.shields.io/badge/donate-paypal-00457c.svg?logo=paypal&style=flat-square" alt="Donate Paypal"></a>
 </p>
 
-## Notice of Non-Affiliation and Disclaimer
-
-Portapps is not affiliated, associated, authorized, endorsed by, or in any way officially connected with Firefox™, or any of its subsidiaries or its affiliates.
-
-The official Firefox™ website can be found at https://www.mozilla.org.
-
-The name Firefox™ as well as related names, marks, emblems and images are registered trademarks of their respective owners.
-
 ## About
 
-Firefox™ Developer Edition portable app made with 🚀 [Portapps](https://portapps.io).<br />
-Documentation and downloads can be found on https://portapps.io/app/firefox-developer-portable/
+Phyrox Developer Edition (based on Mozilla Firefox Developer Edition) portable app made with 🚀 [Portapps](https://portapps.io).<br />
+Documentation and downloads can be found on https://portapps.io/app/phyrox-portable/
+
+> :warning: Following a trademark violation report (#11) from Mozilla, Firefox Developer Edition portable has been named Phyrox Developer Edition portable on Portapps. Nothing changes except its name.
 
 ## How can I help ?
 
