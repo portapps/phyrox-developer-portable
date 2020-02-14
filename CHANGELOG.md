@@ -1,5 +1,9 @@
 # Changelog
 
+## 74.0b3-27 (2019/12/03)
+
+* Firefox Developer Edition 74.0b3
+
 ## 72.0b2-26 (2019/12/03)
 
 * Firefox Developer Edition 72.0b2
