@@ -6,7 +6,7 @@
 * Add `cleanup` config
 * Portapps 1.31.0
 
-## 74.0b3-27 (2019/12/03)
+## 74.0b3-27 (2020/02/14)
 
 * Firefox Developer Edition 74.0b3
 
