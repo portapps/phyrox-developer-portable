@@ -15,11 +15,12 @@ import (
 	"github.com/Jeffail/gabs"
 	"github.com/pkg/errors"
 	"github.com/portapps/phyrox-developer-portable/assets"
-	. "github.com/portapps/portapps"
-	"github.com/portapps/portapps/pkg/dialog"
-	"github.com/portapps/portapps/pkg/mutex"
-	"github.com/portapps/portapps/pkg/shortcut"
-	"github.com/portapps/portapps/pkg/utl"
+	"github.com/portapps/portapps/v2"
+	"github.com/portapps/portapps/v2/pkg/dialog"
+	"github.com/portapps/portapps/v2/pkg/log"
+	"github.com/portapps/portapps/v2/pkg/mutex"
+	"github.com/portapps/portapps/v2/pkg/shortcut"
+	"github.com/portapps/portapps/v2/pkg/utl"
 )
 
 type config struct {
@@ -38,7 +39,7 @@ type policies struct {
 }
 
 var (
-	app *App
+	app *portapps.App
 	cfg *config
 )
 
@@ -55,8 +56,8 @@ func init() {
 	}
 
 	// Init app
-	if app, err = NewWithCfg("phyrox-developer-portable", "Phyrox Developer Edition", cfg); err != nil {
-		Log.Fatal().Err(err).Msg("Cannot initialize application. See log file for more info.")
+	if app, err = portapps.NewWithCfg("phyrox-developer-portable", "Phyrox Developer Edition", cfg); err != nil {
+		log.Fatal().Err(err).Msg("Cannot initialize application. See log file for more info.")
 	}
 }
 
@@ -83,7 +84,7 @@ func main() {
 
 	// Multiple instances
 	if cfg.MultipleInstances {
-		Log.Info().Msg("Multiple instances enabled")
+		log.Info().Msg("Multiple instances enabled")
 		app.Args = append(app.Args, "--no-remote")
 	}
 
@@ -101,15 +102,15 @@ func main() {
 	}
 	rawPolicies, err := json.MarshalIndent(policies, "", "  ")
 	if err != nil {
-		Log.Fatal().Msg("Cannot marshal policies")
+		log.Fatal().Msg("Cannot marshal policies")
 	}
 	if err = ioutil.WriteFile(utl.PathJoin(distributionFolder, "policies.json"), rawPolicies, 0644); err != nil {
-		Log.Fatal().Msg("Cannot write policies")
+		log.Fatal().Msg("Cannot write policies")
 	}
 
 	// Fix extensions path
 	if err := updateAddonStartup(profileFolder); err != nil {
-		Log.Error().Err(err).Msg("Cannot fix extensions path")
+		log.Error().Err(err).Msg("Cannot fix extensions path")
 	}
 
 	// Set env vars
@@ -129,16 +130,16 @@ func main() {
 	defer mu.Release()
 	if err != nil {
 		if !cfg.MultipleInstances {
-			Log.Error().Msg("You have to enable multiple instances in your configuration if you want to launch another instance")
+			log.Error().Msg("You have to enable multiple instances in your configuration if you want to launch another instance")
 			if _, err = dialog.MsgBox(
 				fmt.Sprintf("%s portable", app.Name),
 				"Other instance detected. You have to enable multiple instances in your configuration if you want to launch another instance.",
 				dialog.MsgBoxBtnOk|dialog.MsgBoxIconError); err != nil {
-				Log.Error().Err(err).Msg("Cannot create dialog box")
+				log.Error().Err(err).Msg("Cannot create dialog box")
 			}
 			return
 		} else {
-			Log.Warn().Msg("Another instance is already running")
+			log.Warn().Msg("Another instance is already running")
 		}
 	}
 
@@ -146,11 +147,11 @@ func main() {
 	shortcutPath := path.Join(os.Getenv("APPDATA"), "Microsoft", "Windows", "Start Menu", "Programs", "Phyrox Developer Edition Portable.lnk")
 	defaultShortcut, err := assets.Asset("FirefoxDeveloperEdition.lnk")
 	if err != nil {
-		Log.Error().Err(err).Msg("Cannot load asset FirefoxDeveloperEdition.lnk")
+		log.Error().Err(err).Msg("Cannot load asset FirefoxDeveloperEdition.lnk")
 	}
 	err = ioutil.WriteFile(shortcutPath, defaultShortcut, 0644)
 	if err != nil {
-		Log.Error().Err(err).Msg("Cannot write default shortcut")
+		log.Error().Err(err).Msg("Cannot write default shortcut")
 	}
 
 	// Update default shortcut
@@ -163,11 +164,11 @@ func main() {
 		WorkingDirectory: shortcut.Property{Value: app.AppPath},
 	})
 	if err != nil {
-		Log.Error().Err(err).Msg("Cannot create shortcut")
+		log.Error().Err(err).Msg("Cannot create shortcut")
 	}
 	defer func() {
 		if err := os.Remove(shortcutPath); err != nil {
-			Log.Error().Err(err).Msg("Cannot remove shortcut")
+			log.Error().Err(err).Msg("Cannot remove shortcut")
 		}
 	}()
 
@@ -199,7 +200,7 @@ func updateAddonStartup(profileFolder string) error {
 	if err := updateAddons("app-system-defaults", utl.PathJoin(app.AppPath, "browser", "features"), jsonAs); err != nil {
 		return err
 	}
-	Log.Debug().Msgf("Updated addonStartup.json: %s", jsonAs.String())
+	log.Debug().Msgf("Updated addonStartup.json: %s", jsonAs.String())
 
 	encAsLz4, err := mozLz4Compress(jsonAs.Bytes())
 	if err != nil {
