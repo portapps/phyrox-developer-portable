@@ -1,5 +1,10 @@
 # Changelog
 
+## 76.0b6-29 (2020/04/21)
+
+* Firefox Developer Edition 76.0b6
+* Portapps 2.1.2
+
 ## 75.0b7-28 (2020/03/25)
 
 * Firefox Developer Edition 75.0b7
