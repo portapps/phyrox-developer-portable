@@ -5,7 +5,6 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"net/url"
@@ -24,18 +23,9 @@ import (
 )
 
 type config struct {
-	Profile               string `yaml:"profile" mapstructure:"profile"`
-	MultipleInstances     bool   `yaml:"multiple_instances" mapstructure:"multiple_instances"`
-	DisableTelemetry      bool   `yaml:"disable_telemetry" mapstructure:"disable_telemetry"`
-	DisableFirefoxStudies bool   `yaml:"disable_firefox_studies" mapstructure:"disable_firefox_studies"`
-	Cleanup               bool   `yaml:"cleanup" mapstructure:"cleanup"`
-}
-
-type policies struct {
-	DisableAppUpdate        bool `json:"DisableAppUpdate"`
-	DisableFirefoxStudies   bool `json:"DisableFirefoxStudies"`
-	DisableTelemetry        bool `json:"DisableTelemetry"`
-	DontCheckDefaultBrowser bool `json:"DontCheckDefaultBrowser"`
+	Profile           string `yaml:"profile" mapstructure:"profile"`
+	MultipleInstances bool   `yaml:"multiple_instances" mapstructure:"multiple_instances"`
+	Cleanup           bool   `yaml:"cleanup" mapstructure:"cleanup"`
 }
 
 var (
@@ -48,11 +38,9 @@ func init() {
 
 	// Default config
 	cfg = &config{
-		Profile:               "default",
-		MultipleInstances:     false,
-		DisableTelemetry:      false,
-		DisableFirefoxStudies: false,
-		Cleanup:               false,
+		Profile:           "default",
+		MultipleInstances: false,
+		Cleanup:           false,
 	}
 
 	// Init app
@@ -89,23 +77,8 @@ func main() {
 	}
 
 	// Policies
-	distributionFolder := utl.CreateFolder(app.AppPath, "distribution")
-	policies := struct {
-		policies `json:"policies"`
-	}{
-		policies{
-			DisableAppUpdate:        true,
-			DisableFirefoxStudies:   cfg.DisableFirefoxStudies,
-			DisableTelemetry:        cfg.DisableTelemetry,
-			DontCheckDefaultBrowser: true,
-		},
-	}
-	rawPolicies, err := json.MarshalIndent(policies, "", "  ")
-	if err != nil {
-		log.Fatal().Msg("Cannot marshal policies")
-	}
-	if err = ioutil.WriteFile(utl.PathJoin(distributionFolder, "policies.json"), rawPolicies, 0644); err != nil {
-		log.Fatal().Msg("Cannot write policies")
+	if err := createPolicies(); err != nil {
+		log.Fatal().Err(err).Msg("Cannot create policies")
 	}
 
 	// Fix extensions path
@@ -173,6 +146,49 @@ func main() {
 	}()
 
 	app.Launch(os.Args[1:])
+}
+
+func createPolicies() error {
+	appFile := utl.PathJoin(utl.CreateFolder(app.AppPath, "distribution"), "policies.json")
+	dataFile := utl.PathJoin(app.DataPath, "policies.json")
+	defaultPolicies := struct {
+		Policies map[string]interface{} `json:"policies"`
+	}{
+		Policies: map[string]interface{}{
+			"DisableAppUpdate":        true,
+			"DontCheckDefaultBrowser": true,
+		},
+	}
+
+	jsonPolicies, err := gabs.Consume(defaultPolicies)
+	if err != nil {
+		return errors.Wrap(err, "Cannot consume default policies")
+	}
+	log.Debug().Msgf("Default policies: %s", jsonPolicies.String())
+
+	if utl.Exists(dataFile) {
+		rawCustomPolicies, err := ioutil.ReadFile(dataFile)
+		if err != nil {
+			return errors.Wrap(err, "Cannot read custom policies")
+		}
+
+		jsonPolicies, err = gabs.ParseJSON(rawCustomPolicies)
+		if err != nil {
+			return errors.Wrap(err, "Cannot consume custom policies")
+		}
+		log.Debug().Msgf("Custom policies: %s", jsonPolicies.String())
+
+		jsonPolicies.Set(true, "policies", "DisableAppUpdate")
+		jsonPolicies.Set(true, "policies", "DontCheckDefaultBrowser")
+	}
+
+	log.Debug().Msgf("Applied policies: %s", jsonPolicies.String())
+	err = ioutil.WriteFile(appFile, []byte(jsonPolicies.StringIndent("", "  ")), 0644)
+	if err != nil {
+		return errors.Wrap(err, "Cannot write policies")
+	}
+
+	return nil
 }
 
 func updateAddonStartup(profileFolder string) error {
