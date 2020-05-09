@@ -1,5 +1,12 @@
 # Changelog
 
+## 77.0b3-30 (2020/05/10)
+
+* Firefox Developer Edition 77.0b3
+* Allow custom `policies.json`
+* `DisableTelemetry` and `DisableFirefoxStudies` removed (use policies file instead)
+* Portapps 2.2.4
+
 ## 76.0b6-29 (2020/04/21)
 
 * Firefox Developer Edition 76.0b6
