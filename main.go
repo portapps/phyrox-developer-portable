@@ -7,9 +7,9 @@ package main
 import (
 	"fmt"
 	"io/ioutil"
-	"net/url"
 	"os"
 	"path"
+	"strings"
 
 	"github.com/Jeffail/gabs"
 	"github.com/pkg/errors"
@@ -59,33 +59,6 @@ func main() {
 		profileFolder,
 	}
 
-	// Cleanup on exit
-	if cfg.Cleanup {
-		defer func() {
-			utl.Cleanup([]string{
-				path.Join(os.Getenv("APPDATA"), "Mozilla", "Firefox"),
-				path.Join(os.Getenv("LOCALAPPDATA"), "Mozilla", "Firefox"),
-				path.Join(os.Getenv("USERPROFILE"), "AppData", "LocalLow", "Mozilla"),
-			})
-		}()
-	}
-
-	// Multiple instances
-	if cfg.MultipleInstances {
-		log.Info().Msg("Multiple instances enabled")
-		app.Args = append(app.Args, "--no-remote")
-	}
-
-	// Policies
-	if err := createPolicies(); err != nil {
-		log.Fatal().Err(err).Msg("Cannot create policies")
-	}
-
-	// Fix extensions path
-	if err := updateAddonStartup(profileFolder); err != nil {
-		log.Error().Err(err).Msg("Cannot fix extensions path")
-	}
-
 	// Set env vars
 	crashreporterFolder := utl.CreateFolder(app.DataPath, "crashreporter")
 	pluginsFolder := utl.CreateFolder(app.DataPath, "plugins")
@@ -114,6 +87,33 @@ func main() {
 		} else {
 			log.Warn().Msg("Another instance is already running")
 		}
+	}
+
+	// Cleanup on exit
+	if cfg.Cleanup {
+		defer func() {
+			utl.Cleanup([]string{
+				path.Join(os.Getenv("APPDATA"), "Mozilla", "Firefox"),
+				path.Join(os.Getenv("LOCALAPPDATA"), "Mozilla", "Firefox"),
+				path.Join(os.Getenv("USERPROFILE"), "AppData", "LocalLow", "Mozilla"),
+			})
+		}()
+	}
+
+	// Multiple instances
+	if cfg.MultipleInstances {
+		log.Info().Msg("Multiple instances enabled")
+		app.Args = append(app.Args, "--no-remote")
+	}
+
+	// Policies
+	if err := createPolicies(); err != nil {
+		log.Fatal().Err(err).Msg("Cannot create policies")
+	}
+
+	// Fix extensions path
+	if err := updateAddonStartup(profileFolder); err != nil {
+		log.Error().Err(err).Msg("Cannot fix extensions path")
 	}
 
 	// Copy default shortcut
@@ -193,55 +193,28 @@ func createPolicies() error {
 }
 
 func updateAddonStartup(profileFolder string) error {
-	asLz4 := path.Join(profileFolder, "addonStartup.json.lz4")
-	if !utl.Exists(asLz4) {
+	lz4File := path.Join(profileFolder, "addonStartup.json.lz4")
+	if !utl.Exists(lz4File) || app.Prev.RootPath == "" {
 		return nil
 	}
 
-	decAsLz4, err := mozLz4Decompress(asLz4)
+	lz4Raw, err := mozLz4Decompress(lz4File)
 	if err != nil {
 		return err
 	}
 
-	jsonAs, err := gabs.ParseJSON(decAsLz4)
+	prevPathLin := strings.Replace(utl.FormatUnixPath(app.Prev.RootPath), ` `, `%20`, -1)
+	currPathLin := strings.Replace(utl.FormatUnixPath(app.RootPath), ` `, `%20`, -1)
+	lz4Str := strings.Replace(string(lz4Raw), prevPathLin, currPathLin, -1)
+
+	prevPathWin := strings.Replace(strings.Replace(utl.FormatWindowsPath(app.Prev.RootPath), `\`, `\\`, -1), ` `, `%20`, -1)
+	currPathWin := strings.Replace(strings.Replace(utl.FormatWindowsPath(app.RootPath), `\`, `\\`, -1), ` `, `%20`, -1)
+	lz4Str = strings.Replace(lz4Str, prevPathWin, currPathWin, -1)
+
+	lz4Enc, err := mozLz4Compress([]byte(lz4Str))
 	if err != nil {
 		return err
 	}
 
-	if err := updateAddons("app-global", utl.PathJoin(profileFolder, "extensions"), jsonAs); err != nil {
-		return err
-	}
-	if err := updateAddons("app-profile", utl.PathJoin(profileFolder, "extensions"), jsonAs); err != nil {
-		return err
-	}
-	if err := updateAddons("app-system-defaults", utl.PathJoin(app.AppPath, "browser", "features"), jsonAs); err != nil {
-		return err
-	}
-	log.Debug().Msgf("Updated addonStartup.json: %s", jsonAs.String())
-
-	encAsLz4, err := mozLz4Compress(jsonAs.Bytes())
-	if err != nil {
-		return err
-	}
-
-	return ioutil.WriteFile(asLz4, encAsLz4, 0644)
-}
-
-func updateAddons(field string, basePath string, container *gabs.Container) error {
-	if _, ok := container.Search(field, "path").Data().(string); !ok {
-		return nil
-	}
-	if _, err := container.Set(basePath, field, "path"); err != nil {
-		return errors.Wrap(err, fmt.Sprintf("couldn't set %s.path", field))
-	}
-
-	addons, _ := container.S(field, "addons").ChildrenMap()
-	for key, addon := range addons {
-		_, err := addon.Set(fmt.Sprintf("jar:file:///%s/%s.xpi!/", utl.FormatUnixPath(basePath), url.PathEscape(key)), "rootURI")
-		if err != nil {
-			return errors.Wrap(err, fmt.Sprintf("couldn't set %s %s.rootURI", field, key))
-		}
-	}
-
-	return nil
+	return ioutil.WriteFile(lz4File, lz4Enc, 0644)
 }

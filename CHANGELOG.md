@@ -1,5 +1,10 @@
 # Changelog
 
+## 77.0b3-31 (2020/05/29)
+
+* Fix addons startup (portapps/phyrox-portable#3) 
+* Portapps 2.4.4
+
 ## 77.0b3-30 (2020/05/10)
 
 * Firefox Developer Edition 77.0b3
@@ -52,7 +57,7 @@
 ## 70.0b6-20 (2019/09/13)
 
 * Firefox Developer Edition 70.0b6
-* Fix addons disabled on startup (Issue #1)
+* Fix addons disabled on startup (#1)
 * Portapps 1.26.1
 
 ## 70.0b2-19 (2019/09/02)
@@ -88,7 +93,7 @@
 ## 68.0b7-12 (2019/06/06)
 
 * Firefox Developer Edition 68.0b7
-* Extensions break on path change (Issue portapps/firefox-portable#2)
+* Extensions break on path change (portapps/firefox-portable#2)
 
 ## 68.0b6-11 (2019/06/02)
 
