@@ -1,5 +1,9 @@
 # Changelog
 
+## 78.0b6-32 (2020/06/13)
+
+* Firefox Developer Edition 78.0b6
+
 ## 77.0b3-31 (2020/05/29)
 
 * Fix addons startup (portapps/phyrox-portable#3) 
