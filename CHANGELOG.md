@@ -1,5 +1,9 @@
 # Changelog
 
+## 80.0b2-34 (2020/07/31)
+
+* Firefox Developer Edition 80.0b2
+
 ## 79.0b5-33 (2020/07/08)
 
 * Firefox Developer Edition 79.0b5
