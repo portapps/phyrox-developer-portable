@@ -1,5 +1,10 @@
 # Changelog
 
+## 81.0b1-35 (2020/08/24)
+
+* Firefox Developer Edition 81.0b1
+* Portapps 2.6.0
+
 ## 80.0b2-34 (2020/07/31)
 
 * Firefox Developer Edition 80.0b2
