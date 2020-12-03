@@ -13,7 +13,7 @@
 ## About
 
 Phyrox Developer Edition (based on Mozilla Firefox Developer Edition) portable app made with 🚀 [Portapps](https://portapps.io).<br />
-Documentation and downloads can be found on https://portapps.io/app/phyrox-portable/
+Documentation and downloads can be found on https://portapps.io/app/phyrox-developer-portable/
 
 > :warning: Following a trademark violation report ([#5](https://github.com/portapps/phyrox-developer-portable/issues/5)) from Mozilla, Firefox Developer Edition portable has been named Phyrox Developer Edition portable on Portapps. Nothing changes except its name.
 
