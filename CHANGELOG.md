@@ -1,5 +1,10 @@
 # Changelog
 
+## 88.0b5-40 (2021/04/04)
+
+* Firefox Developer Edition 88.0b5
+* Portapps 3.3.0
+
 ## 86.0b5-39 (2021/02/06)
 
 * Firefox Developer Edition 86.0b5
