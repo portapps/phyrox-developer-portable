@@ -1,5 +1,9 @@
 # Changelog
 
+## 91.0b6-42 (2021/07/25)
+
+* Firefox Developer Edition 91.0b6
+
 ## 89.0b15-41 (2021/05/22)
 
 * Firefox Developer Edition 89.0b15
