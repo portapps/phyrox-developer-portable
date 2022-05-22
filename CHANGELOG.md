@@ -1,5 +1,12 @@
 # Changelog
 
+## 101.0b9-45 (2022/05/22)
+
+* Firefox Developer Edition 101.0b9
+* Portapps 3.5.0
+* Bump github.com/kevinburke/go-bindata (#47)
+* Bump github.com/pierrec/lz4/v3 from 3.3.4 to 3.3.5 (#53)
+
 ## 97.0b8-44 (2022/01/27)
 
 * Firefox Developer Edition 97.0b8
