@@ -1,5 +1,11 @@
 # Changelog
 
+## 106.0b7-46 (2022/10/04)
+
+* Firefox Developer Edition 106.0b7
+* Portapps 3.6.0
+* Bump github.com/kevinburke/go-bindata
+
 ## 101.0b9-45 (2022/05/22)
 
 * Firefox Developer Edition 101.0b9
