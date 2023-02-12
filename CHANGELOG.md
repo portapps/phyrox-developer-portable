@@ -1,5 +1,10 @@
 # Changelog
 
+## 110.0b9-47 (2023/02/12)
+
+* Firefox Developer Edition 110.0b9
+* Portapps 3.7.0
+
 ## 106.0b7-46 (2022/10/04)
 
 * Firefox Developer Edition 106.0b7
