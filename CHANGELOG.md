@@ -1,5 +1,10 @@
 # Changelog
 
+## 133.0b7-51 (2024/11/12)
+
+* Firefox Developer Edition 133.0b7
+* Portapps 3.15.0
+
 ## 126.0b9-50 (2024/05/05)
 
 * Firefox Developer Edition 126.0b9
