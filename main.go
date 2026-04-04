@@ -1,13 +1,13 @@
 //go:generate go install -v github.com/kevinburke/go-bindata/v4/go-bindata
 //go:generate go-bindata -prefix res/ -pkg assets -o assets/assets.go res/FirefoxDeveloperEdition.lnk
 //go:generate go install -v github.com/josephspurrier/goversioninfo/cmd/goversioninfo
-//go:generate goversioninfo -icon=res/papp.ico -manifest=res/papp.manifest
 package main
 
 import (
 	"fmt"
 	"os"
 	"path"
+	"path/filepath"
 	"strings"
 
 	"github.com/Jeffail/gabs"
@@ -52,7 +52,7 @@ func main() {
 	utl.CreateFolder(app.DataPath)
 	profileFolder := utl.CreateFolder(app.DataPath, "profile", cfg.Profile)
 
-	app.Process = utl.PathJoin(app.AppPath, "firefox.exe")
+	app.Process = filepath.Join(app.AppPath, "firefox.exe")
 	app.Args = []string{
 		"--profile",
 		profileFolder,
@@ -149,8 +149,8 @@ func main() {
 }
 
 func createPolicies() error {
-	appFile := utl.PathJoin(utl.CreateFolder(app.AppPath, "distribution"), "policies.json")
-	dataFile := utl.PathJoin(app.DataPath, "policies.json")
+	appFile := filepath.Join(utl.CreateFolder(app.AppPath, "distribution"), "policies.json")
+	dataFile := filepath.Join(app.DataPath, "policies.json")
 	defaultPolicies := struct {
 		Policies map[string]interface{} `json:"policies"`
 	}{
