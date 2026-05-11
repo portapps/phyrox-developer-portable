@@ -2,7 +2,7 @@
 
 ## 151.0b8-53 (2026/05/11)
 
-* Firefox Developer Edition 150.0.2
+* Firefox Developer Edition 151.0b8
 * Portapps 3.18.0
 
 ## 138.0b3-52 (2025/04/06)
