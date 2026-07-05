@@ -1,5 +1,10 @@
 # Changelog
 
+## 153.0b8-54 (2026/07/05)
+
+* Firefox Developer Edition 153.0b8
+* Modernize portability policies and privacy controls
+
 ## 151.0b8-53 (2026/05/11)
 
 * Firefox Developer Edition 151.0b8
